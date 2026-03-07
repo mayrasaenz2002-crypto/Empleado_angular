@@ -1,25 +1,27 @@
-// src/controllers/employees.controller.js
-const employeesCtrl = {};
+const Employee = require('../Models/employee');
+const employeeCtrl = {}; 
 
-employeesCtrl.createEmployee = (req, res) => {
-    res.send("Crear Empleado");
+employeeCtrl.createEmployee = async(req, res) =>{
+    const newEmployee = new Employee(req.body);
+    await newEmployee.save();
+    res.json(newEmployee);
 }
 
-employeesCtrl.getEmployees = (req, res) => {
+employeeCtrl.getEmployees = async (req, res) =>{
+    const employees = await Employee.find();
+    res.json(employees);
+}
+
+employeeCtrl.getEmployee = (req, res) =>{
     res.send("Obtener Empleados");
 }
 
-employeesCtrl.getEmployee = (req, res) => {
-    res.send("Obtener Empleado por ID");
-}
-
-employeesCtrl.editEmployee = (req, res) => {
+employeeCtrl.editEmployee = (req, res) =>{
     res.send("Editar Empleado");
 }
 
-employeesCtrl.deleteEmployee = (req, res) => {
+employeeCtrl.deleteEmployee = (req, res) =>{
     res.send("Eliminar Empleado");
 }
 
-// Exportamos directamente el objeto
-module.exports = employeesCtrl;
+module.exports = employeeCtrl;
